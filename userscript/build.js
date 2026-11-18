@@ -206,6 +206,8 @@ const header = `// ==UserScript==
 // @description  RoPro ${manifest.version} patched to run on rokori.com, backed by your PoPro API server (${API_HOST}).
 // @match        https://www.rokori.com/*
 // @connect      ${API_HOST}
+// @updateURL    ${API_BASE}/PoPro.meta.js
+// @downloadURL  ${API_BASE}/PoPro.user.js
 // @run-at       document-start
 // @grant        GM_getValue
 // @grant        GM_setValue

@@ -52,6 +52,16 @@ const server = http.createServer(async (req, res) => {
     if (route === '' || route === 'health') {
       return send(res, 200, { ok: true, service: 'ropro-rokori-api', rokori: config.rokoriOrigin }, cors);
     }
+    // Optional: serve the userscript you built (place it at DATA_DIR/PoPro.user.js) so Tampermonkey
+    // can install and auto-update it from https://<your-domain>/PoPro.user.js
+    if (route === 'PoPro.user.js' || route === 'PoPro.meta.js') {
+      const fs = require('fs');
+      const file = path.join(config.dataDir, 'PoPro.user.js');
+      if (!fs.existsSync(file)) return send(res, 404, 'userscript not installed on this server', cors);
+      let body = fs.readFileSync(file);
+      if (route === 'PoPro.meta.js') { const t = body.toString('utf8'); body = t.slice(0, t.indexOf('// ==/UserScript==') + 18) + '\n'; }
+      return send(res, 200, body, Object.assign({ 'Content-Type': 'text/javascript; charset=utf-8', 'Cache-Control': 'no-cache' }, cors));
+    }
     if (route === 'themeFrame.php' || route === 'themeFrameVideo.php') {
       return send(res, 302, '', Object.assign({ Location: themes.frameRedirect(parsed.query, route === 'themeFrameVideo.php') }, cors));
     }

@@ -99,7 +99,23 @@ Build it, pointing at **your** API domain:
 node build.js ../ropro-src dist/PoPro.user.js https://api.yourdomain.com
 ```
 
-Install `dist/PoPro.user.js` in Tampermonkey: Dashboard → Utilities → *Import from file*. The file is about 12 MB because RoPro's images and fonts are inlined.
+### Install it (and get updates) from your server
+
+Copy the built file into the server's data folder. Your API then serves it at `https://api.yourdomain.com/PoPro.user.js`:
+
+```bash
+cp dist/PoPro.user.js /opt/popro/server/data/PoPro.user.js
+```
+
+With Docker, copy it into the volume instead:
+
+```bash
+docker compose cp userscript/dist/PoPro.user.js popro-api:/data/PoPro.user.js
+```
+
+Open `https://api.yourdomain.com/PoPro.user.js` in a browser that has Tampermonkey, and Tampermonkey shows **Install**. Share that link with others. When you rebuild and copy a new file there, Tampermonkey picks up the update. The script's `@updateURL` points at `/PoPro.meta.js`. Bump `@version` in `build.js` to push an update.
+
+You can also install the file directly: Tampermonkey Dashboard → Utilities → *Import from file*. It's about 12 MB because RoPro's images and fonts are inlined.
 
 ---
 
