@@ -1,0 +1,22 @@
+# systemd unit for running without Docker.
+# sudo cp deploy/popro-api.service /etc/systemd/system/ && sudo systemctl enable --now popro-api
+[Unit]
+Description=PoPro API (RoPro-compatible API for rokori)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=popro
+WorkingDirectory=/opt/popro/server
+EnvironmentFile=/opt/popro/.env
+Environment=DATA_DIR=/var/lib/popro
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/popro
+StateDirectory=popro
+
+[Install]
+WantedBy=multi-user.target

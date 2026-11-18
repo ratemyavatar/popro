@@ -1,0 +1,8 @@
+node_modules/
+server/data/
+.env
+# RoPro's own code must not be committed: the extension (.crx), its extracted files, and built userscripts
+*.crx
+ropro-src/
+userscript/dist/
+*.user.js

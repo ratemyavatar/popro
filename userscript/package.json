@@ -1,0 +1,12 @@
+{
+  "name": "popro-userscript-build",
+  "private": true,
+  "description": "Builds the PoPro Tampermonkey userscript from your own copy of the RoPro extension",
+  "scripts": {
+    "build": "node build.js ../ropro-src dist/PoPro.user.js"
+  },
+  "devDependencies": {
+    "acorn": "8.12.1",
+    "esbuild": "0.23.1"
+  }
+}

@@ -1,0 +1,13 @@
+services:
+  popro-api:
+    build: ./server
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATA_DIR: /data
+    volumes:
+      - popro-data:/data
+    ports:
+      - "127.0.0.1:8787:8787"   # only reachable through your reverse proxy (HTTPS)
+volumes:
+  popro-data:

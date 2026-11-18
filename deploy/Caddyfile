@@ -1,0 +1,4 @@
+# Caddy gets HTTPS certificates automatically. Replace api.example.com with your domain.
+api.example.com {
+    reverse_proxy 127.0.0.1:8787
+}
